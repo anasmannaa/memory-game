@@ -8,6 +8,6 @@ Clone the GitHub repository using console:
 $ git clone https://github.com/anasmannaa/memory-game.git
 or download the [zipped file](https://github.com/anasmannaa/memory-game.git)
 
-##Usage
+## Usage
 
 When you clone the zipped file and unzipe it you will find and index.html, open it using any browser software installed on you machine and enjoy the game.
