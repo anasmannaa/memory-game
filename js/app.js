@@ -48,6 +48,9 @@ const stars = document.querySelector('.stars').querySelectorAll('li');
 // Right Gueses
 let rightGuesses = 0;
 
+// Check timer condition
+let isTimerOn = false;
+
 // Time interval holder
 var timerVal;
 
@@ -73,7 +76,6 @@ function constructCards() {
 			cards.push(newCard);
 		}	
 	}
-	startTimer();
 	return (shuffle(cards));
 }
 
@@ -105,6 +107,10 @@ function addGameCards (array) {
 
 // Call this function if card was clicked by user
 function respondeToCardClick (event) {
+	if(isTimerOn === false) {
+		startTimer();
+		isTimerOn = true;
+	}
 	const target = event.target;
 	target.removeEventListener('click', respondeToCardClick);
 	if (target.tagName.toLowerCase() == 'li') {
@@ -162,10 +168,8 @@ function addMove() {
 function starsCalculator() {
 	if (numMoves >= 16 && numMoves <= 20) {
 		stars[2].firstChild.className="fa fa-star-o";
-	} else if (numMoves >= 21 && numMoves <= 23) {
+	} else if (numMoves >= 21) {
 		stars[1].firstChild.className="fa fa-star-o";
-	} else if (numMoves >= 24 && numMoves <= 26) {
-		stars[0].firstChild.className="fa fa-star-o";
 	}
 }
 
@@ -176,20 +180,24 @@ function reset() {
 		card.className = 'card';
 		card.addEventListener('click', respondeToCardClick);
 	}
+	openedCards.splice(0);
 	numMoves = 0;
+	isTimerOn = false;
 	moves.innerText = numMoves;
 	scorePanel.style.display = 'block';
 	deck.style.display = 'flex';
 	finished.style.display= 'none';
 	resetStars();
-	startTimer();
+	clearInterval(timerVal);
+	eTimer.innerHTML = '';
+	isTimerOn = false;
+	console.log(isTimerOn);
 }
 
 // Reset star shapes
 function resetStars() {
-	stars[0].firstChild.className="fa fa-star";
-	stars[1].firstChild.className="fa fa-star";
 	stars[2].firstChild.className="fa fa-star";
+	stars[1].firstChild.className="fa fa-star";
 }
 
 // Pause the excution for a while (https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep)
@@ -215,17 +223,8 @@ function gameStatistics() {
 
 // Create game timer
 function startTimer() {
-	if (typeof timerVal === 'undefined') {
-		console.log("Hw");
-    	timerVal = setInterval(timer, 1000);
-	} else {
-		console.log("Hi");
-		clearInterval(timerVal);
-		timerVal = setInterval(timer, 1000);
-	}
-
+	timerVal = setInterval(timer, 1000);
 	let totalSeconds = 0;
-
 	function timer() {
 		++totalSeconds;
 		let hours = Math.floor(totalSeconds/3600); //Count hours
