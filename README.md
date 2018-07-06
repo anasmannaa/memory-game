@@ -12,7 +12,7 @@ or download the [zipped file](https://github.com/anasmannaa/memory-game.git)
 
 When you clone the zipped file and unzipe it you will find and index.html, open it using any browser software installed on you machine and enjoy the game.
 
-## Usage ##
+## Dependencies ##
 
 * [font-awesome](https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css)
 * [Coda font](https://fonts.googleapis.com/css?family=Coda)
